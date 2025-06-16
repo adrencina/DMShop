@@ -24,6 +24,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -45,11 +48,17 @@ android {
     buildFeatures {
         compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
-
 dependencies {
-
     // --- GOOGLE SIGN IN ---
     implementation(libs.google.auth)
 
@@ -62,6 +71,13 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+
+    // --- WorkManager ---
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+
+    // --- ZXing ---
+    implementation(libs.zxing.core)
+    implementation(libs.zxing.embedded)
 
     // --- Jetpack Compose UI ---
     implementation(platform(libs.androidx.compose.bom))
