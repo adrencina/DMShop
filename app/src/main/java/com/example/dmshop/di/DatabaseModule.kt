@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
 import com.example.dmshop.data.local.AppDatabase
+import com.example.dmshop.data.local.dao.OrderDao
 import com.example.dmshop.data.local.dao.ProductDao
 import dagger.Module
 import dagger.Provides
@@ -31,7 +32,7 @@ object DatabaseModule {
         return Room.databaseBuilder(
             context,
             AppDatabase::class.java,
-            "dmshop_database"
+            "dmshop.db"
         ).build()
     }
 
@@ -39,6 +40,12 @@ object DatabaseModule {
     @Singleton
     fun provideProductDao(database: AppDatabase): ProductDao {
         return database.productDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideOrderDao(database: AppDatabase): OrderDao {
+        return database.orderDao()
     }
 
     @Provides

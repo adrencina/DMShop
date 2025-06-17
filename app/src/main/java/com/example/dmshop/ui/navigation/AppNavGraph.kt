@@ -1,15 +1,16 @@
 package com.example.dmshop.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.dmshop.domain.model.Product
+import com.example.dmshop.ui.cart.CartScreen
+import com.example.dmshop.ui.confirmation.ConfirmationScreen
 import com.example.dmshop.ui.screens.catalog.CatalogScreen
-import com.example.dmshop.ui.screens.catalog.CatalogViewModel
+import com.example.dmshop.ui.success.SuccessScreen
+import com.example.dmshop.ui.theme.ThemeViewModel
+import com.example.dmshop.ui.viewmodel.SharedCartViewModel
 
 /**
  * Objeto que define las rutas de navegación de la aplicación.
@@ -29,80 +30,34 @@ object Destinations {
 @Composable
 fun AppNavGraph(
     navController: NavHostController,
-    startDestination: String = Destinations.CATALOG
+    themeViewModel: ThemeViewModel,
+    sharedCartViewModel: SharedCartViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     NavHost(
         navController = navController,
-        startDestination = startDestination
+        startDestination = "catalog"
     ) {
-        composable(Destinations.CATALOG) {
-            val viewModel: CatalogViewModel = hiltViewModel()
-            val products by viewModel.products.collectAsState()
-            val isLoading by viewModel.isLoading.collectAsState()
-
+        composable("catalog") {
             CatalogScreen(
                 navController = navController,
-                products = products,
-                isLoading = isLoading,
-                onProductClick = { product ->
-                    navController.navigate(Destinations.CART)
-                }
+                sharedVm = sharedCartViewModel,
+                themeViewModel = themeViewModel
             )
         }
-        composable(Destinations.CART) {
-            CatalogScreen(
-                navController = navController,
-                products = listOf(
-                    Product("1", "Producto en carrito", 99.99, "url1"),
-                    Product("2", "Otro producto", 149.99, "url2")
-                ),
-                isLoading = false,
-                onProductClick = { }
-            )
+        
+        composable("cart") { backStackEntry ->
+            val sharedVm = hiltViewModel<SharedCartViewModel>(backStackEntry)
+            CartScreen(navController, sharedVm)
         }
-        composable(Destinations.ORDERS) {
-            CatalogScreen(
-                navController = navController,
-                products = listOf(
-                    Product("1", "Orden #123", 299.99, "url1"),
-                    Product("2", "Orden #124", 199.99, "url2")
-                ),
-                isLoading = false,
-                onProductClick = { }
-            )
+        
+        composable("confirmation") { backStackEntry ->
+            val sharedVm = hiltViewModel<SharedCartViewModel>(backStackEntry)
+            ConfirmationScreen(navController, sharedVm)
         }
-        composable(Destinations.SETTINGS) {
-            CatalogScreen(
-                navController = navController,
-                products = listOf(
-                    Product("1", "Configuración", 0.0, "url1"),
-                    Product("2", "Perfil", 0.0, "url2")
-                ),
-                isLoading = false,
-                onProductClick = { }
-            )
-        }
-        composable(Destinations.SHOPPING_LIST) {
-            CatalogScreen(
-                navController = navController,
-                products = listOf(
-                    Product("1", "Lista de compras", 0.0, "url1"),
-                    Product("2", "Productos guardados", 0.0, "url2")
-                ),
-                isLoading = false,
-                onProductClick = { }
-            )
-        }
-        composable(Destinations.CONFIRMATION) {
-            CatalogScreen(
-                navController = navController,
-                products = listOf(
-                    Product("1", "Confirmación de compra", 0.0, "url1"),
-                    Product("2", "Detalles de envío", 0.0, "url2")
-                ),
-                isLoading = false,
-                onProductClick = { }
-            )
+        
+        composable("success") { backStackEntry ->
+            val sharedVm = hiltViewModel<SharedCartViewModel>(backStackEntry)
+            SuccessScreen(navController, sharedVm)
         }
     }
 } 

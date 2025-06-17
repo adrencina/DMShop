@@ -1,5 +1,6 @@
 package com.example.dmshop.data.repository
 
+import android.R.attr.description
 import com.example.dmshop.data.local.dao.ProductDao
 import com.example.dmshop.data.local.entity.ProductEntity
 import com.example.dmshop.domain.model.Product
@@ -34,7 +35,9 @@ class CatalogRepositoryImpl @Inject constructor(
             id = id,
             name = name,
             price = price,
-            imageUrl = imageUrl
+            imageUrl = imageUrl,
+            description = description.toString(),
+            availableSizes = listOf("S", "M", "L", "XL")
         )
     }
 } 

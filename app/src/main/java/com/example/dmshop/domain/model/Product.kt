@@ -6,6 +6,8 @@ package com.example.dmshop.domain.model
 data class Product(
     val id: String,
     val name: String,
+    val description: String,
     val price: Double,
-    val imageUrl: String
+    val imageUrl: String,
+    val availableSizes: List<String> = listOf("S", "M", "L", "XL")
 ) 

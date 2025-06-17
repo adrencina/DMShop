@@ -13,7 +13,5 @@ import javax.inject.Singleton
 class GetCatalogUseCase @Inject constructor(
     private val repository: CatalogRepository
 ) {
-    operator fun invoke(): Flow<List<Product>> {
-        return repository.getProducts()
-    }
+    operator fun invoke(): Flow<List<Product>> = repository.getProducts()
 } 

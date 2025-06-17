@@ -1,7 +1,9 @@
 package com.example.dmshop.di
 
 import com.example.dmshop.data.repository.CatalogRepositoryImpl
+import com.example.dmshop.data.repository.OrdersRepositoryImpl
 import com.example.dmshop.domain.repository.CatalogRepository
+import com.example.dmshop.domain.repository.OrdersRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,4 +22,10 @@ abstract class RepositoryModule {
     abstract fun bindCatalogRepository(
         catalogRepositoryImpl: CatalogRepositoryImpl
     ): CatalogRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindOrdersRepository(
+        ordersRepositoryImpl: OrdersRepositoryImpl
+    ): OrdersRepository
 } 

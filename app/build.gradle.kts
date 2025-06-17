@@ -59,72 +59,86 @@ android {
 }
 
 dependencies {
+    // AndroidX Core
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+
     // --- GOOGLE SIGN IN ---
     implementation(libs.google.auth)
 
+    // Lifecycle
     implementation(libs.androidx.datastore.preferences)
-
-    // Coil
-    implementation(libs.coil.compose)
-
-    // --- AndroidX ---
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // Activity
     implementation(libs.androidx.activity.compose)
 
-    // --- WorkManager ---
+    // WorkManager
     implementation("androidx.work:work-runtime-ktx:2.9.0")
 
-    // --- ZXing ---
-    implementation(libs.zxing.core)
-    implementation(libs.zxing.embedded)
-
-    // --- Jetpack Compose UI ---
+    // Compose BOM
     implementation(platform(libs.androidx.compose.bom))
+
+    // Compose UI
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.ui.test.junit4)
+    implementation(libs.androidx.ui.test.manifest)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
 
-    // --- Material 3 ---
+    // ZXing
+    implementation(libs.zxing.core)
+    implementation(libs.zxing.embedded)
+
+    // Material 3
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.material3.v120)
 
-    // --- Navigation ---
+    // Navigation
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
 
-    // --- Coroutines ---
+    // Coroutines
+    implementation(libs.coil.compose)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
-    // --- Room ---
+    // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.runtime.livedata)
     kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.runtime.livedata)
 
-    // --- Dagger Hilt ---
+    // Dagger Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
 
-    // --- Firebase ---
+    // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.storage.ktx)
     implementation(libs.firebase.firestore.ktx)
 
-    // --- Testing ---
+    // Gson
+    implementation(libs.gson)
+
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
 }
 
 kapt { correctErrorTypes = true }
